@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Dimension Filter v2.0.3.1 — User Guide</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --text:#1f2430; --muted:#6b7280;
+    --accent:#2563eb; --accent-bg:#eef2ff; --border:#e5e7eb;
+    --warn-bg:#fff7ed; --warn-border:#fdba74; --warn-text:#9a3412;
+    --danger-bg:#fef2f2; --danger-border:#fca5a5; --danger-text:#991b1b;
+    --code-bg:#f1f5f9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15181f; --card:#1c2029; --text:#e6e8ee; --muted:#9aa3b2;
+      --accent:#7aa2ff; --accent-bg:#232a3d; --border:#2b3040;
+      --warn-bg:#332008; --warn-border:#8a5a12; --warn-text:#ffcf8a;
+      --danger-bg:#3a1414; --danger-border:#9a3a3a; --danger-text:#ffb4b4;
+      --code-bg:#20242e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15181f; --card:#1c2029; --text:#e6e8ee; --muted:#9aa3b2;
+    --accent:#7aa2ff; --accent-bg:#232a3d; --border:#2b3040;
+    --warn-bg:#332008; --warn-border:#8a5a12; --warn-text:#ffcf8a;
+    --danger-bg:#3a1414; --danger-border:#9a3a3a; --danger-text:#ffb4b4;
+    --code-bg:#20242e;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"Segoe UI",system-ui,sans-serif;
+    line-height:1.75;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  .wrap{max-width:880px; margin:0 auto; padding:32px 20px 80px;}
+  header.top{
+    background:linear-gradient(135deg,var(--accent) 0%, #4f46e5 100%);
+    color:#fff; padding:40px 20px; text-align:center;
+  }
+  header.top h1{margin:0 0 8px; font-size:1.6rem;}
+  header.top p{margin:0; opacity:.9; font-size:.95rem;}
+  .badge{display:inline-block; background:rgba(255,255,255,.18); border-radius:999px; padding:4px 14px; font-size:.8rem; margin-top:14px; margin-right:6px;}
+  nav.toc{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:18px 22px; margin:28px 0;
+  }
+  nav.toc h2{margin-top:0; font-size:1rem; color:var(--muted); font-weight:600;}
+  nav.toc ol{margin:0; padding-left:1.3em; columns:2; column-gap:24px;}
+  nav.toc a{color:var(--accent); text-decoration:none; font-size:.92rem;}
+  nav.toc a:hover{text-decoration:underline;}
+  section{margin:40px 0;}
+  h2{
+    font-size:1.25rem; border-left:5px solid var(--accent); padding-left:12px;
+    margin-bottom:14px;
+  }
+  h3{font-size:1.05rem; margin:22px 0 8px; color:var(--accent);}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:18px 22px; margin:14px 0;
+  }
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:.92rem;}
+  th,td{border:1px solid var(--border); padding:8px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--accent-bg);}
+  code, kbd{
+    background:var(--code-bg); border-radius:4px; padding:1px 6px; font-size:.88em;
+    font-family:Consolas,"Courier New",monospace;
+  }
+  kbd{border:1px solid var(--border); box-shadow:0 1px 0 var(--border);}
+  .warn, .danger, .note{
+    border-radius:10px; padding:14px 18px; margin:14px 0; font-size:.93rem;
+  }
+  .warn{background:var(--warn-bg); border:1px solid var(--warn-border); color:var(--warn-text);}
+  .danger{background:var(--danger-bg); border:1px solid var(--danger-border); color:var(--danger-text);}
+  .note{background:var(--accent-bg); border:1px solid var(--border); color:var(--text);}
+  ul{padding-left:1.4em;}
+  li{margin:4px 0;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:640px){ .grid2{grid-template-columns:1fr;} nav.toc ol{columns:1;} }
+  footer{text-align:center; color:var(--muted); font-size:.85rem; margin-top:60px;}
+  header.top .links{margin-top:14px; font-size:.9rem;}
+  header.top .links a, footer a{color:inherit;}
+  .tag{display:inline-block; background:var(--accent-bg); color:var(--accent); border-radius:6px; padding:1px 8px; font-size:.78rem; margin-left:6px;}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Image Dimension Filter</h1>
+  <p>User Guide · v2.0.3.1 (Build 20260926) · Windows 10 only</p>
+  <span class="badge">Deleted items go to the Recycle Bin by default</span>
+  <span class="badge">Permanent deletion where the Recycle Bin isn't supported</span>
+  <p class="links"><a href="https://imgdfservice.github.io/image-dimension-filter/manual-zh.html">繁體中文</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/index.html">Home</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a></p>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#areas">The six areas</a></li>
+    <li><a href="#flow">Basic workflow</a></li>
+    <li><a href="#filter">Orientation and filter modes</a></li>
+    <li><a href="#format">By Format reference table</a></li>
+    <li><a href="#recursive">Include Subfolders</a></li>
+    <li><a href="#select">Selecting, dragging, box selection</a></li>
+    <li><a href="#context">Right-click menus</a></li>
+    <li><a href="#nav">Previous / Next</a></li>
+    <li><a href="#lock">Locking files</a></li>
+    <li><a href="#delete">Deleting and the Recycle Bin</a></li>
+    <li><a href="#stop">Stop Processing / Clear Results</a></li>
+    <li><a href="#stats">Result Stats</a></li>
+    <li><a href="#viewer">Image Viewer</a></li>
+    <li><a href="#trial">Trial and full version</a></li>
+    <li><a href="#about">About this software</a></li>
+    <li><a href="#disclaimer">Disclaimer</a></li>
+    <li><a href="#config">Settings file locations</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ol>
+</nav>
+
+<section id="areas">
+  <h2>1. The six areas</h2>
+  <div class="card">
+    <table>
+      <tr><th>Name</th><th>Location</th><th>Description</th></tr>
+      <tr><td>Folder pane</td><td>Left</td><td>Tree view starting from “This PC” and your drives; subfolders load only when expanded</td></tr>
+      <tr><td>Main toolbar</td><td>Top of the window</td><td>Previous / Next, filter settings, Start Processing, Rescan, Result Stats, Include Subfolders</td></tr>
+      <tr><td>Thumbnail area</td><td>Main area on the right</td><td>Thumbnails of the images and subfolders in the current folder</td></tr>
+      <tr><td>Thumbnail toolbar</td><td>Above the thumbnail area</td><td>Select All, display toggles, Lock / Unlock, Refresh Thumbnails</td></tr>
+      <tr><td>Viewer info bar</td><td>Image Viewer title bar</td><td>File name and resolution (locked images show 🔒; incomplete files show a ⚠️ warning)</td></tr>
+      <tr><td>Viewer toolbar</td><td>Top of the Image Viewer</td><td>Viewing buttons</td></tr>
+    </table>
+    <p class="note">The <b>Help</b> menu at the top of the window contains: User Guide (opens this page), License Terms &amp; Copyright, Privacy Policy, Buy Full Version, and About (version, developer information and disclaimer — see sections 15 and 16). The first three open online documents in your browser, in Chinese or English depending on the app's interface language.</p>
+  </div>
+  <div class="card">
+    <h3>The two display toggles, and the message shown when the thumbnail area is empty</h3>
+    <p>The thumbnail toolbar has two toggle buttons. The text on each button tells you <b>what you will switch to</b> when you click it:</p>
+    <ul>
+      <li>“Show All Images” ⇄ “Low-Res Only”: available only after you have clicked “Start Processing”; after processing, the default is “Low-Res Only”.</li>
+      <li>“Images Only” ⇄ “Show All”: “Images Only” hides subfolders and non-image files; “Show All” shows everything.</li>
+    </ul>
+    <p>When there is nothing to show in the thumbnail area, the message depends on the current state and tells you which button to click to see other items:</p>
+    <table>
+      <tr><th>State</th><th>Message in the thumbnail area</th></tr>
+      <tr><td>Not processed + Images Only</td><td>No images (currently showing “Images Only”; click “Show All” to see everything).</td></tr>
+      <tr><td>Processed + Low-Res Only + Images Only</td><td>No images (currently showing “Images Only”; click “Show All” and “Show All Images” to see everything).</td></tr>
+      <tr><td>Processed + Low-Res Only + Show All (and no subfolders)</td><td>No low-resolution images (currently showing “Low-Res Only”; click “Show All Images” to see all images).</td></tr>
+      <tr><td>Processed + Show All Images + Images Only</td><td>No images (currently showing “Images Only”; click “Show All” to see everything).</td></tr>
+      <tr><td>The folder itself contains nothing</td><td>This folder is empty.</td></tr>
+    </table>
+    <p class="note">Before processing, the message does not mention “Show All Images”, because that button can't be clicked yet.</p>
+  </div>
+</section>
+
+<section id="flow">
+  <h2>2. Basic workflow</h2>
+  <div class="card">
+    <ol>
+      <li>Select a folder in the folder pane on the left. Before processing you are in “browse mode”: you can copy / cut / paste / delete / rename / create folders / drag / view. You can also select several folders at once with <kbd>Ctrl</kbd> / <kbd>Shift</kbd> in the folder pane, or by checking several subfolders in the thumbnail area.</li>
+      <li>Set the orientation and filter in the main toolbar (see sections 3 and 4), and check “Include Subfolders” if needed.</li>
+      <li>Click “Start Processing”. The app reads each image's resolution and marks low-resolution images (red text). If you selected several folders, all of them are processed in turn — not just the first one.</li>
+      <li>In the thumbnail area, select the images you want to clean up (you can use the right-click menu and drag-and-drop), then delete them (they go to the Recycle Bin by default — see section 10).</li>
+    </ol>
+  </div>
+</section>
+
+<section id="filter">
+  <h2>3. Orientation (required) and filter modes</h2>
+  <div class="card">
+    <p><b>Orientation</b> is a required setting for every “Start Processing”. It is to the left of “Filter Mode” and has three options:</p>
+    <ul>
+      <li><b>Landscape</b>: only images where width &gt; height are checked; portrait and square images are skipped.</li>
+      <li><b>Portrait</b>: only images where height &gt; width are checked; landscape and square images are skipped.</li>
+      <li><b>Any</b>: all images are checked regardless of orientation, <b>including square images</b>. To filter square images you must choose “Any” — a square image has equal width and height, so it never matches “Landscape” or “Portrait” and is skipped as a mismatch.</li>
+    </ul>
+    <p>The order is: <b>orientation first</b>. Only images that match the orientation are then checked for low resolution using one of the three filter modes below; images that don't match are treated as not processed (never marked as low-resolution).</p>
+    <p>Choose one filter mode:</p>
+    <ul>
+      <li><b>Size Settings</b>: an image is low-resolution if its horizontal pixels (width) are under the set value <b>or</b> its vertical pixels (height) are under the set value.
+        <br>With “Portrait”, the vertical value you enter must be greater than the horizontal value; with “Landscape”, the horizontal value must be greater than the vertical value; both values must be greater than 0.
+        If these rules aren't met, clicking “Start Processing” shows “Setting conflict — please adjust”. There is no such restriction with “Any”.</li>
+      <li><b>Either side under N</b>: an image is low-resolution if either its width or its height is under N (the smaller of the two is checked).</li>
+      <li><b>By Format</b>: pick a common format from the drop-down list (720p / 1080p / 1440p / 2160p / Higher). See section 4 for details.</li>
+    </ul>
+    <p>“Set as Default” saves the current orientation, filter mode (including the format chosen for “By Format”) and values. They are applied immediately and automatically the next time you open the app.</p>
+  </div>
+</section>
+
+<section id="format">
+  <h2>4. By Format reference table</h2>
+  <div class="card">
+    <p>“By Format” always compares the image's <b>short side</b> (the smaller of width and height) using <b>ranges</b>: the short side must fall within the option's range (lower bound included, upper bound excluded). The ranges don't overlap:</p>
+    <table>
+      <tr><th>Option</th><th>Short-side range (px)</th><th>Rule</th></tr>
+      <tr><td>720p</td><td>720 ≤ short side &lt; 1080</td><td>Within range → low-resolution</td></tr>
+      <tr><td>1080p</td><td>1080 ≤ short side &lt; 1440</td><td>Within range → low-resolution</td></tr>
+      <tr><td>1440p</td><td>1440 ≤ short side &lt; 2160</td><td>Within range → low-resolution</td></tr>
+      <tr><td>2160p</td><td>2160 ≤ short side &lt; 3840</td><td>Within range → low-resolution</td></tr>
+      <tr><td>Higher</td><td>short side ≥ 3840</td><td>Within range → low-resolution (3840 is the 4K short side)</td></tr>
+    </table>
+    <p class="note">Example: with “1080p”, a 1600×1000 image has a short side of 1000, which is not in [1080, 1440), so it is not marked. With “720p”, the same image falls in [720, 1080) and is marked as low-resolution.</p>
+  </div>
+</section>
+
+<section id="recursive">
+  <h2>5. Include Subfolders</h2>
+  <div class="card">
+    <p>With “Include Subfolders” checked, “Start Processing” walks through <b>every level</b> below the selected folder. Each folder keeps its own results and shows its own red count in the folder pane.</p>
+    <ul>
+      <li>The top folder's thumbnail area shows only the images at its own level; subfolders still appear as folder tiles — open them to see their results (results are not flattened into one view).</li>
+      <li>The Recycle Bin and system folders are skipped automatically; folders you don't have permission to read are skipped without stopping the whole run.</li>
+      <li>This checkbox is <b>not remembered</b>; it is unchecked each time the app opens (only the selected folder itself is scanned).</li>
+    </ul>
+    <p style="margin-top:12px;"><b>⚠️ Note:</b> in the folder pane, a folder name shown in red only reflects whether <b>that folder itself</b> contains matching low-resolution images; <b>it does not add up the results of its subfolders</b>. If a folder has no matching images but one of its subfolders does, the folder still appears in black while collapsed — expand it with “+” to see the red subfolder. After processing multiple levels, it's a good habit to expand the tree and check, so you don't conclude that a folder has no low-resolution images underneath it.</p>
+  </div>
+</section>
+
+<section id="select">
+  <h2>6. Selecting, dragging, box selection</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Mouse</h3>
+      <ul>
+        <li>Click: select only this item</li>
+        <li><kbd>Ctrl</kbd> + click: toggle selection (click a selected item again to deselect it)</li>
+        <li><kbd>Shift</kbd> + click: select a range</li>
+        <li>Click an empty area: clear the selection</li>
+        <li>Box selection: drag a box from an empty area; on release, the items inside are <b>added</b> to the selection</li>
+        <li>Double-click an image: open the Image Viewer; double-click a folder: open that folder</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Drag to move</h3>
+      <ul>
+        <li>Drag images / folders onto another folder in the folder pane to move them there</li>
+        <li>Hover over a destination for about 0.7 seconds to expand it automatically</li>
+        <li>The folder pane scrolls automatically near its top and bottom edges</li>
+        <li>Dropping onto the same folder, or a folder into its own subfolder, is not accepted</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Naming rule when pasting / moving onto an existing name</h3>
+      <p>When you copy, cut and paste, or drag items into a folder that already has an item with the same name (including pasting back into the same folder), the app never overwrites the existing item. Instead it adds a number to the new item:</p>
+      <table>
+        <tr><th>Case</th><th>Original name</th><th>New name</th></tr>
+        <tr><td>File</td><td>1.jpg</td><td>1 (2).jpg → paste again: 1 (3).jpg</td></tr>
+        <tr><td>File that already has a number</td><td>1 (2).jpg</td><td>1 (3).jpg (the existing number is increased, skipping numbers already in use; never 1 (2) (2).jpg)</td></tr>
+        <tr><td>File with multiple extensions</td><td>a.tar.gz</td><td>a.tar (2).gz (only the part after the last “.” is treated as the extension)</td></tr>
+        <tr><td>File starting with a dot</td><td>.gitignore</td><td>.gitignore (2)</td></tr>
+        <tr><td>Folder</td><td>Photos.2024</td><td>Photos.2024 (2) (folders have no extension; dots in the name are not treated as one)</td></tr>
+      </table>
+      <p class="note">The number is always inserted <b>before the extension</b>, so the new file still opens normally.</p>
+    </div>
+  </div>
+</section>
+
+<section id="context">
+  <h2>7. Right-click menus</h2>
+  <div class="card">
+    <p>There are three menus, depending on where you right-click:</p>
+    <ul>
+      <li><b>On selected items</b>: Open (images) / Copy / Cut / Lock / Unlock / Delete</li>
+      <li><b>On an empty area</b>: New Folder / Paste / Sort (Name, Date, File Size, Dimensions × Ascending / Descending)</li>
+      <li><b>When a single folder is selected</b>: the full folder menu (New / Copy / Cut / Paste / Rename / Delete Entire Folder / Properties)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="nav">
+  <h2>8. Previous / Next</h2>
+  <div class="card">
+    <p>“◀ Previous” and “Next ▶” at the top left of the main toolbar, or the shortcuts <kbd>Alt</kbd>+<kbd>←</kbd> / <kbd>Alt</kbd>+<kbd>→</kbd>, move between folders you have visited (like a browser's back / forward).</p>
+  </div>
+</section>
+
+<section id="lock">
+  <h2>9. Locking files</h2>
+  <div class="card">
+    <ul>
+      <li>Locked files are <b>not filtered</b> (not marked red, not counted as low-resolution) and <b>cannot be deleted</b>.</li>
+      <li>Only <b>files</b> can be locked, not folders; if the selection includes folders, Lock / Unlock skips them.</li>
+      <li>Locked files can still be copied, cut and moved; only filtering and deleting are blocked.</li>
+      <li>How: the “🔒 Lock”, “🔓 Unlock” and “Unlock All” buttons in the thumbnail toolbar, or “Lock” / “Unlock” in the thumbnail right-click menu.</li>
+      <li>Locked thumbnails show a small 🔒 badge in the top-right corner; the Image Viewer title bar also shows 🔒 before the file name.</li>
+      <li>When batch-deleting a selection that includes locked files, the other items are deleted and the result window tells you how many were skipped.</li>
+      <li>When deleting a whole folder, if the folder (or any subfolder) contains a locked file, the deletion is <b>refused with a message</b> and nothing is deleted.</li>
+      <li>The lock list is saved and kept after you close and reopen the app; when files are moved or folders renamed inside the app, the lock records follow the new paths automatically.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="delete">
+  <h2>10. Deleting and the Recycle Bin</h2>
+  <div class="card">
+    <p>Deleted items are <b>moved to the Windows Recycle Bin by default</b>, so you can restore anything deleted by mistake.</p>
+    <div class="warn">
+      If the drive or location (for example <b>removable media or a network drive</b>) doesn't support the Recycle Bin, the app asks twice:
+      <ol>
+        <li>“… doesn't support the Recycle Bin and will be permanently deleted. Continue?” (OK / Cancel)</li>
+        <li>After OK: “Permanently delete these items? This cannot be undone.” (OK / Cancel)</li>
+      </ol>
+      Items are permanently deleted only if you choose OK both times; choosing Cancel at either step skips them.
+    </div>
+    <p class="note">When batch-deleting many files / folders, these two confirmations are asked only once for all the items that don't support the Recycle Bin, not once per file.</p>
+  </div>
+</section>
+
+<section id="stop">
+  <h2>11. Stop Processing / Clear Results</h2>
+  <div class="card">
+    <ul>
+      <li>While processing, “Start Processing” changes to “Stop Processing”; only one processing job runs at a time.</li>
+      <li>“Stop Processing” <b>discards the results of that run</b>; the folder stays “not processed” and you can process it again later.</li>
+      <li>“Clear Results” clears all processing results the app currently remembers (all red counts disappear and “Result Stats” is greyed out), and the thumbnail area returns to browse mode. It does <b>not</b> affect the lock list and needs no confirmation.</li>
+      <li>While processing you can still browse other folders, but “Rescan” and “Clear Results” are available only after the run finishes (or after you stop it).</li>
+    </ul>
+  </div>
+</section>
+
+<section id="stats">
+  <h2>12. Result Stats</h2>
+  <div class="card">
+    <p>“Result Stats” in the main toolbar becomes available after at least one successful “Start Processing”; it is greyed out when there are no results (including after “Clear Results”).</p>
+    <p>The statistics cover <b>all processing results the app currently remembers</b> (including every subfolder from recursive runs; they keep accumulating until you click “Clear Results”, not just the folder you are viewing):</p>
+    <ul>
+      <li><b>Total images scanned</b>: the number of images in all results.</li>
+      <li><b>Resolution buckets</b>: by the image's <b>long side</b> (the larger of width and height) in four buckets: <code>&lt; 1920</code>, <code>1921 ~ 2560</code>, <code>2561 ~ 3840</code>, <code>&gt; 3840</code> (the four buckets add up to the total scanned).</li>
+      <li><b>Matches cleanup criteria</b>: count and total size, consistent with the red marking — <b>locked files are not included</b>.</li>
+      <li><b>Processing time</b>: total time spent processing, accumulated until you click “Clear Results”.</li>
+    </ul>
+    <p class="note">The long-side buckets here and the short-side ranges of “By Format” (section 4) are two different definitions: “By Format” is a filter criterion (short side), while these buckets are only for statistics (always long side).</p>
+  </div>
+</section>
+
+<section id="viewer">
+  <h2>13. Image Viewer</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Mouse</h3>
+      <ul>
+        <li>Left click: next image; left drag: pan</li>
+        <li>Right click: previous image</li>
+        <li><b>Multi-click left: zoom in</b>; <b>multi-click right: zoom out</b></li>
+        <li>Mouse wheel: zoom</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Keyboard</h3>
+      <ul>
+        <li><kbd>←</kbd> / <kbd>→</kbd> / <kbd>PgUp</kbd> / <kbd>PgDn</kbd>: previous / next image (not affected by multi-click zoom)</li>
+        <li><kbd>+</kbd> / <kbd>=</kbd> / <kbd>−</kbd>: zoom; <kbd>0</kbd>: fit window</li>
+        <li><kbd>Delete</kbd>: delete the current image (locked images show “This image is locked. Please unlock it first.”)</li>
+        <li><kbd>Esc</kbd>: exit fullscreen → restore window → close, in that order</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>⚠️ Incomplete file warning</h3>
+    <p>If an image file is truncated (for example an interrupted download or copy), the app displays whatever part was received instead of showing an error. The Image Viewer's info panel shows “⚠️ File incomplete, some content may be missing” to remind you that part of the picture (usually the bottom) may be missing. Thumbnails are displayed the same way.</p>
+  </div>
+</section>
+
+<section id="trial">
+  <h2>14. Trial and full version</h2>
+  <div class="card">
+    <p>This software is a <b>free download</b> from the Microsoft Store and lets you <b>filter 300 images for free</b>. After that you can buy the “Full Version” inside the app to remove the limit (a one-time purchase, not a subscription). The trial and the full version are <b>the same app</b> — no reinstall is needed after purchase.</p>
+    <h3>How the 300 images are counted</h3>
+    <ul>
+      <li>The count is the cumulative number of images that were <b>filtered out (matched your criteria and marked red)</b>, not the number scanned. It accumulates across app sessions, however many folders you process at once.</li>
+      <li><b>Each image counts only once</b>, identified by “file path + modified time”. Reprocessing or rescanning the same folder does not count already-counted images again.</li>
+      <li>An image that is <b>moved, renamed or modified</b> is treated as a new image and will be counted again when processed.</li>
+      <li><b>Locked images are not counted</b> (they are not filtered). If you later unlock one and it turns red, it is counted at that moment.</li>
+    </ul>
+    <h3>Stopping at exactly 300</h3>
+    <ul>
+      <li>Example: 20 trial images remain and a run finds 50 matching images. Only <b>the first 20 in scan order</b> are marked red; the other 30 are not marked (but are still counted in the totals). When the run finishes, a message says the trial limit of 300 images has been reached and 30 more matching images were found but not marked; the message has “Buy Full Version” and “Close” buttons.</li>
+      <li>When several folders are processed as a batch, the message appears once, after the whole batch.</li>
+      <li>The status bar shows “(Trial remaining: N / 300)” after the processing result; this is not shown in the full version.</li>
+    </ul>
+    <h3>When the trial is used up</h3>
+    <ul>
+      <li><b>Only “Start Processing” is blocked</b>: clicking it shows a message (with a “Buy Full Version” button).</li>
+      <li>Browsing, file operations (copy / cut / paste / delete), the Image Viewer, existing red results and Result Stats keep working.</li>
+      <li>When you change files in an already-processed folder, the app refreshes the results automatically: already-counted images stay red, and newly matching images are not marked.</li>
+      <li>The trial count is stored <b>on this computer</b>; uninstalling and reinstalling does <b>not</b> reset it.</li>
+    </ul>
+    <h3>How to buy the full version</h3>
+    <ul>
+      <li>Where: ① the “Help → Buy Full Version…” menu ② the “Buy Full Version” button in the trial-limit message.</li>
+      <li>Remaining images: shown in the status bar after processing, and in “Help → About” as “Trial version (N remaining)” or “Full version”.</li>
+      <li>Payment is completed in the Microsoft Store purchase window (this software never handles any payment information).</li>
+      <li><b>The purchase takes effect immediately</b>, without restarting: you'll see “Thank you for your purchase! The full version is now activated.” and the menu changes to “✔ Full Version Activated”. Images left unmarked because of the trial limit are not reprocessed automatically — click “Start Processing” again.</li>
+      <li>Only the version installed from the Microsoft Store can make in-app purchases.</li>
+    </ul>
+    <h3>Purchase verification</h3>
+    <ul>
+      <li>Each time the app opens, it checks with the Microsoft Store whether you have purchased (an internet connection is needed). If you click “Start Processing” during the check, processing starts automatically once the check completes.</li>
+      <li>If the check can't be completed (for example no internet or a Store service problem), the app runs as the trial for this session (the trial count still applies) and shows “Unable to verify your purchase status right now. Please check your network connection and restart the app.” It checks again the next time it starts.</li>
+    </ul>
+    <p class="note">The trial count is signature-protected and stored in several places on your computer (your user folder and the Windows registry). If the records have been tampered with and can't be verified, the trial is treated as used up.</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>15. About this software</h2>
+  <div class="card">
+    <table>
+      <tr><th>Item</th><th>Details</th></tr>
+      <tr><td>Name</td><td>Image Dimension Filter (Traditional Chinese name: 影像尺寸篩選器)</td></tr>
+      <tr><td>Version</td><td>v2.0.3.1 (Build 20260926)</td></tr>
+      <tr><td>Developer</td><td>Wei-Jen Huang</td></tr>
+      <tr><td>Copyright</td><td>Copyright &copy; 2026 Wei-Jen Huang. All rights reserved.</td></tr>
+      <tr><td>Contact</td><td><a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a></td></tr>
+      <tr><td>License</td><td>Proprietary software (not open source), all rights reserved; see <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html" target="_blank" rel="noopener">License Terms &amp; Copyright</a></td></tr>
+      <tr><td>License status</td><td>Trial version (N remaining) or Full version</td></tr>
+      <tr><td>Privacy Policy</td><td><a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html" target="_blank" rel="noopener">View the Privacy Policy</a></td></tr>
+    </table>
+    <p>The same information is shown in the app under “Help → About”.</p>
+    <h3>Third-Party Notices</h3>
+    <table>
+      <tr><th>Component</th><th>License</th></tr>
+      <tr><td>Python (incl. Tcl/Tk, OpenSSL, zlib and other bundled components)</td><td>PSF License 2.0 / respective licenses</td></tr>
+      <tr><td>Pillow (incl. libjpeg-turbo, libpng, zlib, FreeType, etc.)</td><td>MIT-CMU License / respective licenses</td></tr>
+      <tr><td>Send2Trash</td><td>BSD-3-Clause License</td></tr>
+      <tr><td>PyWinRT (winrt-runtime, winrt-Windows.*)</td><td>MIT License</td></tr>
+      <tr><td>Nuitka</td><td>Apache License 2.0</td></tr>
+    </table>
+    <p class="note">Full license texts: the “Full Third-Party Notices…” button at the bottom of the “Help → About” window (THIRD-PARTY-NOTICES.txt installed with the app).</p>
+  </div>
+</section>
+
+<section id="disclaimer">
+  <h2>16. Disclaimer</h2>
+  <div class="danger">
+    This software is provided “as is,” and all processing takes place locally on your computer. To the maximum extent permitted by law, except in cases of the developer's intentional misconduct or gross negligence, the developer shall not be liable for any data loss or incidental or consequential damages arising from the use of this software (including the trial version). Where liability cannot be excluded by law, the developer's total liability shall not exceed the amount you actually paid for this software. Deletion is irreversible (permanent in some cases — see section 10) — please confirm and back up important files before deleting.
+  </div>
+  <p>See the full <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html" target="_blank" rel="noopener">License Terms &amp; Copyright</a>.</p>
+</section>
+
+<section id="config">
+  <h2>17. Settings file locations</h2>
+  <div class="card">
+    <p>Settings and logs are stored in your user folder: <code>%USERPROFILE%\.image_filter_gui\</code></p>
+    <table>
+      <tr><th>File</th><th>Contents</th></tr>
+      <tr><td><code>config.json</code></td><td>Default filter values, filter mode (including the format for “By Format”), orientation, interface language</td></tr>
+      <tr><td><code>locks.json</code></td><td>The list of locked files</td></tr>
+      <tr><td><code>error.log</code></td><td>Records of unexpected errors (cleared automatically when it exceeds 512 KB)</td></tr>
+    </table>
+    <p>The trial count is signature-protected and stored in several places, including your user folder and the Windows registry (see section 14). Please don't edit it manually, or the trial will be treated as used up.</p>
+    <p class="note">Uninstalling the app does not delete this data automatically. To remove your settings, lock list and error log, delete the <code>%USERPROFILE%\.image_filter_gui\</code> folder after uninstalling.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>18. FAQ</h2>
+  <div class="card">
+    <h3>What does “⚠️ File incomplete” in the Image Viewer mean?</h3>
+    <p>The file was truncated while being saved or transferred (part of the end is missing). The app displays the part it received, but part of the picture (usually the bottom) may be missing. Other files are not affected.</p>
+    <h3>A thumbnail shows “Cannot Preview”?</h3>
+    <p>The file can't be decoded (it may be badly damaged, or not really an image). This is different from a truncated file and doesn't affect other files.</p>
+    <h3>Can I recover deleted files?</h3>
+    <p>Usually yes — restore them from the Windows Recycle Bin. Only items on locations that don't support the Recycle Bin (section 10), for which you chose OK in both confirmations, are permanently deleted.</p>
+    <h3>My antivirus flags the app?</h3>
+    <p>This software is distributed only through the Microsoft Store and is signed by Microsoft, so it is normally not flagged by antivirus software and shows no SmartScreen warning. Please don't use installers from unknown sources.</p>
+    <h3>How do I report a problem?</h3>
+    <p>Email <a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a> with the steps you took and the messages you saw. If possible, attach <code>%USERPROFILE%\.image_filter_gui\error.log</code> (it contains technical error messages that may include file paths — you can review it before sending).</p>
+    <h3>Is HEIC supported?</h3>
+    <p>Not at the moment. Common formats that Pillow can read directly (such as JPG / PNG / BMP / GIF / TIFF) are supported.</p>
+    <h3>After reaching the 300-image trial limit, can I still delete or browse images already found?</h3>
+    <p>Yes. The limit only blocks “Start Processing” itself; existing results are unaffected and you can still browse, lock, delete and view Result Stats.</p>
+    <h3>Do I need to buy again after changing computers or reinstalling?</h3>
+    <p>No. Your purchase is tied to your Microsoft account. Sign in to the Microsoft Store with the same account and install the app; it is recognized as the full version when it opens.</p>
+    <h3>I've purchased, but the app still shows the trial?</h3>
+    <p>Check your internet connection and that the Microsoft Store is signed in with the account you purchased with, then restart the app.</p>
+    <h3>How do I switch the interface language?</h3>
+    <p>Use the “語言 Language” menu. The choice is saved and takes effect after you restart the app. By default the app uses Traditional Chinese if Windows is set to Traditional Chinese, and English otherwise.</p>
+  </div>
+</section>
+
+</div>
+<footer>Image Dimension Filter v2.0.3.1 User Guide<br>
+<a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms &amp; Copyright</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a> · <a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a><br>
+Copyright &copy; 2026 Wei-Jen Huang. All rights reserved.</footer>
+</body>
+</html>
