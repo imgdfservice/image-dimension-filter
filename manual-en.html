@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Image Dimension Filter v2.0.3.1 r02 — User Guide</title>
+<title>Image Dimension Filter v2.0.3.1 r06 — User Guide</title>
 <style>
   :root{
     --bg:#f7f8fa; --card:#ffffff; --text:#1f2430; --muted:#6b7280;
@@ -97,7 +97,7 @@
 <body>
 <header class="top">
   <h1>Image Dimension Filter</h1>
-  <p>User Guide · v2.0.3.1 r02 (Build 20260926) · Windows 10 only</p>
+  <p>User Guide · v2.0.3.1 r06 (Build 20260927) · Windows 10 only</p>
   <span class="badge">Deleted items go to the Recycle Bin by default</span>
   <span class="badge">Permanent deletion where the Recycle Bin isn't supported</span>
   <p class="links"><a href="https://imgdfservice.github.io/image-dimension-filter/manual-zh.html">繁體中文</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/index.html">Home</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a></p>
@@ -174,7 +174,7 @@
   <div class="card">
     <ul>
       <li><b>One folder</b>: click it in the folder tree.</li>
-      <li><b>Several folders</b>: use <kbd>Ctrl</kbd> / <kbd>Shift</kbd> in the folder tree, or tick several subfolders in the thumbnail area. “Start Processing” processes all of them in turn, and the status bar shows the batch progress.</li>
+      <li><b>Several folders</b>: use <kbd>Ctrl</kbd> / <kbd>Shift</kbd> in the folder tree, or tick several subfolders in the thumbnail area. “Start Processing” processes all of them in turn, and the status bar shows the batch progress.<br>Multiple selection in the folder tree is <b>for batch processing only</b>; dragging in the folder tree moves or copies only the one folder you drag (see section 6).</li>
       <li><b>Include Subfolders</b>: when ticked, every level of subfolders under the chosen folder is processed as well.
         <ul>
           <li>Each folder keeps its own results: the thumbnail area shows only the current level; open a subfolder to see its results. They are not merged into one page.</li>
@@ -285,15 +285,20 @@
       <li><b>On empty space</b>: New Folder, Paste, Sort (name / date / file size / dimensions, ascending or descending).</li>
     </ul>
 
-    <h3>Drag to move</h3>
+    <h3>Drag to move or copy</h3>
     <ul>
-      <li>Drag images or folders onto another folder in the folder tree to move them there.</li>
-      <li>Hovering over a folder for about 0.7 seconds expands it; dragging near the top or bottom edge of the tree scrolls it.</li>
-      <li>Dropping onto the folder the items are already in, or dropping a folder into itself, is not accepted.</li>
+      <li>Select images, files or folders in the thumbnail area and drag them onto a <b>folder in the folder tree</b> or a <b>folder thumbnail in the thumbnail area</b> to <b>move</b> them there. A valid target is outlined in blue; dropping onto a file thumbnail or empty space does nothing, and a folder can't be dropped onto itself.</li>
+      <li>Dragging near the top or bottom edge of the thumbnail area scrolls it.</li>
+      <li>When you drag a folder <b>within the folder tree</b>, only <b>the folder you drag</b> is moved or copied (multiple selection in the folder tree is for batch processing only). To move several items at once, select them in the thumbnail area and drag.</li>
+      <li><b>Hold <kbd>Ctrl</kbd></b> while dragging to <b>copy</b> instead (just like File Explorer); the originals stay where they are. What counts is whether <kbd>Ctrl</kbd> is held <b>at the moment you release the mouse button</b>, so you can press it midway. The label next to the pointer switches between “Move to” and “Copy to” as you press or release <kbd>Ctrl</kbd>, and the confirmation message says whether items will be moved or copied.</li>
+      <li>All of the drags above support copying with <kbd>Ctrl</kbd>.</li>
+      <li>Copies are <b>not</b> locked (same as Copy / Paste). A copied image has a different path, so if it is marked red it counts as a new image toward the trial (see section 10).</li>
+      <li>Hovering over a folder in the folder tree for about 0.7 seconds expands it; dragging near the top or bottom edge of the tree scrolls it.</li>
+      <li>Dropping onto the folder the items are already in (with or without <kbd>Ctrl</kbd>), or dropping a folder into itself, is not accepted. To make a copy in the same folder, use <kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
     </ul>
 
     <h3>When the name already exists</h3>
-    <p>Pasting or moving into a folder that already has an item with the same name never overwrites it; a number is added automatically (before the extension, so the file still opens normally):</p>
+    <p>Pasting, moving or copying into a folder that already has an item with the same name never overwrites it; a number is added automatically (before the extension, so the file still opens normally):</p>
     <table>
       <tr><th>Case</th><th>Original</th><th>New name</th></tr>
       <tr><td>Normal file</td><td>1.jpg</td><td>1 (2).jpg → paste again: 1 (3).jpg</td></tr>
@@ -445,10 +450,10 @@
 <section id="about">
   <h2>13. About, license and disclaimer</h2>
   <div class="card">
-    <p><b>Image Dimension Filter</b>  v2.0.3.1 r02 (Build 20260926)<br>
+    <p><b>Image Dimension Filter</b>  v2.0.3.1 r06 (Build 20260927)<br>
     Developer: Wei-Jen Huang  Contact: <a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a><br>
     Copyright © 2026 Wei-Jen Huang. All rights reserved.</p>
-    <p>This is proprietary (non-open-source) software. See the <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms &amp; Copyright</a> and the <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a>. “Help → About” in the app also shows the version and license status.</p>
+    <p>This is proprietary (non-open-source) software. See the <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms &amp; Copyright</a> and the <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a>. “Help → About” in the app also shows the version and license status (only one About window can be open at a time).</p>
 
     <h3>Disclaimer</h3>
     <p>This software is provided “as is,” and all processing takes place locally on your computer. To the maximum extent permitted by law, except in cases of the developer's intentional misconduct or gross negligence, the developer shall not be liable for any data loss or incidental or consequential damages arising from the use of this software (including the trial version). Where liability cannot be excluded by law, the developer's total liability shall not exceed the amount you actually paid for this software. Deletion is irreversible (permanent in some cases — see section 8) — please confirm and back up important files before deleting.</p>
@@ -471,6 +476,7 @@
           <tr><td><kbd>Alt</kbd>+<kbd>←</kbd> / <kbd>Alt</kbd>+<kbd>→</kbd></td><td>Previous / Next folder</td></tr>
           <tr><td><kbd>Ctrl</kbd> + click</td><td>Add / remove from selection</td></tr>
           <tr><td><kbd>Shift</kbd> + click</td><td>Select a range</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + drag</td><td>Copy to the target folder (without Ctrl = move)</td></tr>
           <tr><td><kbd>Delete</kbd></td><td>Delete the selected items</td></tr>
         </table>
       </div>
@@ -490,7 +496,7 @@
 
 </div>
 
-<footer>Image Dimension Filter v2.0.3.1 r02 User Guide<br>
+<footer>Image Dimension Filter v2.0.3.1 r06 User Guide<br>
 <a href="https://imgdfservice.github.io/image-dimension-filter/terms-en.html">License Terms &amp; Copyright</a> · <a href="https://imgdfservice.github.io/image-dimension-filter/privacy-en.html">Privacy Policy</a> · <a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a><br>
 Copyright &copy; 2026 Wei-Jen Huang. All rights reserved.</footer>
 </body>

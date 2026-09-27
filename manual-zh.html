@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>影像尺寸篩選器 Image Dimension Filter v2.0.3.1 r02 — 使用說明</title>
+<title>影像尺寸篩選器 Image Dimension Filter v2.0.3.1 r06 — 使用說明</title>
 <style>
   :root{
     --bg:#f7f8fa; --card:#ffffff; --text:#1f2430; --muted:#6b7280;
@@ -97,7 +97,7 @@
 <body>
 <header class="top">
   <h1>影像尺寸篩選器 Image Dimension Filter</h1>
-  <p>使用說明・v2.0.3.1 r02 (Build 20260926)・僅支援 Windows 10</p>
+  <p>使用說明・v2.0.3.1 r06 (Build 20260927)・僅支援 Windows 10</p>
   <span class="badge">刪除預設會進資源回收桶</span>
   <span class="badge">部分位置無法支援時將永久刪除</span>
   <p class="links"><a href="https://imgdfservice.github.io/image-dimension-filter/manual-en.html">English</a>・<a href="https://imgdfservice.github.io/image-dimension-filter/index.html">首頁</a>・<a href="https://imgdfservice.github.io/image-dimension-filter/terms-zh.html">授權條款</a>・<a href="https://imgdfservice.github.io/image-dimension-filter/privacy-zh.html">隱私權政策</a></p>
@@ -174,7 +174,7 @@
   <div class="card">
     <ul>
       <li><b>單一資料夾</b>：在檔案區點一下。</li>
-      <li><b>多個資料夾</b>：在檔案區用 <kbd>Ctrl</kbd> / <kbd>Shift</kbd> 多選，或在縮圖區勾選多個子資料夾。按「開始處理」會依序全部處理，狀態列會顯示批次進度。</li>
+      <li><b>多個資料夾</b>：在檔案區用 <kbd>Ctrl</kbd> / <kbd>Shift</kbd> 多選，或在縮圖區勾選多個子資料夾。按「開始處理」會依序全部處理，狀態列會顯示批次進度。<br>檔案區的多選<b>只用於批次處理</b>；在檔案區拖曳時，一次只會搬移或複製滑鼠按住的那一個資料夾（見第 6 節）。</li>
       <li><b>包含子資料夾</b>：勾選後，會處理選定資料夾底下所有層級的子資料夾。
         <ul>
           <li>每個資料夾各自保存結果：縮圖區只顯示目前這一層的圖片，子資料夾要點進去看，不會合併成一整頁。</li>
@@ -285,15 +285,20 @@
       <li><b>在空白處</b>：新增資料夾、貼上、排序（名稱 / 日期 / 檔案大小 / 尺寸，正序或倒序）。</li>
     </ul>
 
-    <h3>拖曳搬移</h3>
+    <h3>拖曳搬移與複製</h3>
     <ul>
-      <li>把圖片或資料夾拖到檔案區的其他資料夾，就會搬移過去。</li>
-      <li>在目的地上停留約 0.7 秒會自動展開；靠近檔案區上下緣會自動捲動。</li>
-      <li>拖到原本所在的資料夾，或把資料夾拖進它自己底下，不會被接受。</li>
+      <li>在縮圖區選取圖片、檔案或資料夾後，拖到<b>左側檔案區的資料夾</b>，或<b>縮圖區裡的資料夾縮圖</b>上，就會<b>搬移</b>過去。可以放開的目標會以藍框標示；放在檔案縮圖或空白處不會有動作，資料夾也不能拖到自己身上。</li>
+      <li>拖到縮圖區的上下邊緣時，縮圖區會自動捲動。</li>
+      <li>在<b>檔案區</b>拖曳資料夾時，一次只會搬移或複製<b>滑鼠按住的那一個資料夾</b>（檔案區的多選只用於批次處理）。要一次搬移多個項目，請在縮圖區選取後拖曳。</li>
+      <li>拖曳時<b>按住 <kbd>Ctrl</kbd></b> 就會變成<b>複製</b>（跟檔案總管一樣），原本的檔案留在原處。以<b>放開滑鼠那一刻</b>有沒有按著 <kbd>Ctrl</kbd> 為準，拖到一半再按也可以；跟著滑鼠的提示會即時顯示「移動到」或「複製到」，放開後的確認視窗也會寫明是搬移還是複製。</li>
+      <li>上面各種拖曳都可以用 <kbd>Ctrl</kbd> 複製。</li>
+      <li>複製出來的檔案<b>不會</b>帶著鎖定（跟「複製 / 貼上」一樣）。複製的圖片路徑不同，被標成紅字時，試用額度會把它當成新的一張（見第 10 節）。</li>
+      <li>在檔案區的資料夾上停留約 0.7 秒會自動展開；靠近檔案區上下緣會自動捲動。</li>
+      <li>拖到原本所在的資料夾（按住 <kbd>Ctrl</kbd> 也一樣），或把資料夾拖進它自己底下，不會被接受。想在同一個資料夾裡複製一份，請用 <kbd>Ctrl</kbd>+<kbd>C</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd>。</li>
     </ul>
 
     <h3>遇到同名項目</h3>
-    <p>貼上或搬移到已有同名項目的資料夾時，不會覆蓋原檔，而是自動加上序號（序號插在副檔名前面，檔案仍可正常開啟）：</p>
+    <p>貼上、搬移或複製到已有同名項目的資料夾時，不會覆蓋原檔，而是自動加上序號（序號插在副檔名前面，檔案仍可正常開啟）：</p>
     <table>
       <tr><th>情況</th><th>原名稱</th><th>新名稱</th></tr>
       <tr><td>一般檔案</td><td>1.jpg</td><td>1 (2).jpg → 再貼一次 1 (3).jpg</td></tr>
@@ -445,10 +450,10 @@
 <section id="about">
   <h2>13. 關於、授權與免責聲明</h2>
   <div class="card">
-    <p><b>影像尺寸篩選器 Image Dimension Filter</b>　v2.0.3.1 r02 (Build 20260926)<br>
+    <p><b>影像尺寸篩選器 Image Dimension Filter</b>　v2.0.3.1 r06 (Build 20260927)<br>
     開發者：Wei-Jen Huang　聯絡：<a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a><br>
     Copyright © 2026 Wei-Jen Huang. All rights reserved.　版權所有 © 2026 Wei-Jen Huang。保留所有權利。</p>
-    <p>本軟體為專有軟體（非開源），詳見<a href="https://imgdfservice.github.io/image-dimension-filter/terms-zh.html">授權條款與版權聲明</a>與<a href="https://imgdfservice.github.io/image-dimension-filter/privacy-zh.html">隱私權政策</a>。程式內「說明 → 關於」也會顯示版本與授權狀態。</p>
+    <p>本軟體為專有軟體（非開源），詳見<a href="https://imgdfservice.github.io/image-dimension-filter/terms-zh.html">授權條款與版權聲明</a>與<a href="https://imgdfservice.github.io/image-dimension-filter/privacy-zh.html">隱私權政策</a>。程式內「說明 → 關於」也會顯示版本與授權狀態（「關於」視窗同一時間只能開一個）。</p>
 
     <h3>免責聲明</h3>
     <p>本軟體依「現狀（As Is）」提供，所有處理皆於使用者電腦本機執行。在法律允許的最大範圍內，除開發者之故意或重大過失外，開發者對因使用本軟體（含試用版）所生之資料遺失、附隨或衍生性損害，不負賠償責任；如依法仍須負責，賠償總額以使用者為本軟體實際支付之金額為上限。刪除功能屬不可逆操作（部分情況為永久刪除，見第 8 節），請於刪除前自行確認並備份重要檔案。</p>
@@ -471,6 +476,7 @@
           <tr><td><kbd>Alt</kbd>+<kbd>←</kbd> / <kbd>Alt</kbd>+<kbd>→</kbd></td><td>上一頁 / 下一頁</td></tr>
           <tr><td><kbd>Ctrl</kbd> + 單擊</td><td>加選 / 取消選取</td></tr>
           <tr><td><kbd>Shift</kbd> + 單擊</td><td>範圍選取</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + 拖曳</td><td>複製到目標資料夾（不按 = 搬移）</td></tr>
           <tr><td><kbd>Delete</kbd></td><td>刪除選取的項目</td></tr>
         </table>
       </div>
@@ -490,7 +496,7 @@
 
 </div>
 
-<footer>影像尺寸篩選器 Image Dimension Filter v2.0.3.1 r02 使用說明<br>
+<footer>影像尺寸篩選器 Image Dimension Filter v2.0.3.1 r06 使用說明<br>
 <a href="https://imgdfservice.github.io/image-dimension-filter/terms-zh.html">授權條款與版權聲明</a>・<a href="https://imgdfservice.github.io/image-dimension-filter/privacy-zh.html">隱私權政策</a>・<a href="mailto:imgdf.service@gmail.com">imgdf.service@gmail.com</a><br>
 Copyright &copy; 2026 Wei-Jen Huang. All rights reserved.</footer>
 </body>
